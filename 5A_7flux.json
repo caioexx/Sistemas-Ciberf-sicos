@@ -1,0 +1,75 @@
+[
+    {
+        "id": "455a75afebb9441e",
+        "type": "tab",
+        "label": "SC_5A_seventh-flow",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7ad16f1083d63d9d",
+        "type": "debug",
+        "z": "455a75afebb9441e",
+        "name": "debug 33",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1200,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "f96e4aedafe541f3",
+        "type": "inject",
+        "z": "455a75afebb9441e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 700,
+        "y": 380,
+        "wires": [
+            [
+                "b2bd12cbd9088cc9"
+            ]
+        ]
+    },
+    {
+        "id": "b2bd12cbd9088cc9",
+        "type": "function",
+        "z": "455a75afebb9441e",
+        "name": "function 4",
+        "func": "let valores = [10, 20, 30, 40, 50];\nlet media = valores.reduce((a, b) => a + b, 0) / valores.length;\n\nmsg.payload = {\n    valores: valores,\n    media: media\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 380,
+        "wires": [
+            [
+                "7ad16f1083d63d9d"
+            ]
+        ]
+    }
+]

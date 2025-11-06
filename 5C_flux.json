@@ -1,0 +1,512 @@
+[
+    {
+        "id": "ae590a841509cede",
+        "type": "tab",
+        "label": "SC_5C_dashboard",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7f69db6b30bf5776",
+        "type": "mqtt in",
+        "z": "ae590a841509cede",
+        "name": "",
+        "topic": "IPB/IoT/Lab/Cobot/grupo1",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "48af79046741b302",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 140,
+        "wires": [
+            [
+                "963c55b94acdc651",
+                "4a96e98650c5ade2",
+                "e8efd678f1d931ff"
+            ]
+        ]
+    },
+    {
+        "id": "4bc101a2426de244",
+        "type": "debug",
+        "z": "ae590a841509cede",
+        "name": "debug 39",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "963c55b94acdc651",
+        "type": "function",
+        "z": "ae590a841509cede",
+        "name": "function 15",
+        "func": "\n// 1. Acessa o objeto de parâmetros que veio do MQTT\nlet params = msg.payload.parameters;\n\n// 2. O nó 'table' espera um array de objetos.\n//    Vamos criar um array onde cada objeto será uma linha na tabela.\nlet tableData = [];\n\n// 3. Função auxiliar para arredondar números para 2 casas decimais\n//    Ela retorna uma string, que é perfeito para exibição na tabela.\nfunction round(value) {\n    if (typeof value === 'number') {\n        return value.toFixed(2);\n    }\n    return value; // Retorna valores não-numéricos (como \"Running\") sem alteração\n}\n\n// 4. Mapeamento das chaves internas para nomes mais amigáveis (opcional, mas recomendado)\nconst friendlyNames = {\n    \"positionX\": \"Posição X\",\n    \"positionY\": \"Posição Y\",\n    \"positionZ\": \"Posição Z\",\n    \"positionRX\": \"Rotação X\",\n    \"positionRY\": \"Rotação Y\",\n    \"positionRZ\": \"Rotação Z\", // Corrigido (no seu código antigo estava 'positionRz')\n    \"status\": \"Status\",\n    \"temperature\": \"Temperatura\",\n    \"joint1\": \"Junta 1\",\n    \"joint2\": \"Junta 2\",\n    \"joint3\": \"Junta 3\",\n    \"joint4\": \"Junta 4\",\n    \"joint5\": \"Junta 5\",\n    \"joint6\": \"Junta 6\",\n    \"current\": \"Corrente Elt.\", \n    \"voltage\": \"Tensão Elt.\", \n    \"robotCurrent\": \"Robot Ampers\",\n};\n\n// 5. Itera sobre as chaves do nosso mapa (para manter a ordem)\n//    e cria um objeto de linha para cada parâmetro.\nfor (let key in friendlyNames) {\n    // Verifica se a chave realmente existe nos dados recebidos\n    if (params.hasOwnProperty(key)) {\n        tableData.push({\n            \"Parâmetro\": friendlyNames[key],\n            \"Valor\": round(params[key])\n        });\n    }\n}\n\n// 6. Define o payload da mensagem de saída como o array formatado\nmsg.payload = tableData;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 140,
+        "wires": [
+            [
+                "4bc101a2426de244",
+                "2fa127072a527b30"
+            ]
+        ]
+    },
+    {
+        "id": "2fa127072a527b30",
+        "type": "ui_table",
+        "z": "ae590a841509cede",
+        "group": "06624d0b66857ac6",
+        "name": "",
+        "order": 1,
+        "width": 6,
+        "height": 10,
+        "columns": [],
+        "outputs": 0,
+        "cts": false,
+        "x": 630,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "4a96e98650c5ade2",
+        "type": "debug",
+        "z": "ae590a841509cede",
+        "name": "debug 40",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "0cc87c074d376f36",
+        "type": "ui_text",
+        "z": "ae590a841509cede",
+        "group": "c05700db1b2c443a",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Grupo de Trabalho",
+        "format": "Augustin Bernacki (67611), Bilolo Vemba (a66695), Caio Oliveira (a52963), Mauro Leme (a52965)",
+        "layout": "col-center",
+        "className": "",
+        "style": true,
+        "font": "Arial,Arial,Helvetica,sans-serif",
+        "fontSize": "14",
+        "color": "#000000",
+        "x": 450,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "7dd2274e72afe865",
+        "type": "ui_chart",
+        "z": "ae590a841509cede",
+        "name": "",
+        "group": "c05700db1b2c443a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Temperatura (°C)",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "30",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 690,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8f4ac2168913e13e",
+        "type": "ui_text",
+        "z": "ae590a841509cede",
+        "group": "c05700db1b2c443a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Status",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 650,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e8efd678f1d931ff",
+        "type": "function",
+        "z": "ae590a841509cede",
+        "name": "function 16",
+        "func": "// 1. Acessa o objeto de parâmetros que veio do MQTT\nconst params = msg.payload.parameters;\n\n// Se 'params' não existir, pare o fluxo para evitar erros\nif (!params) {\n    node.warn(\"msg.payload.parameters está vazio ou não existe.\");\n    return null; \n}\n\n// 2. Função auxiliar para arredondar números\nfunction round(value) {\n    if (typeof value === 'number') {\n        return value.toFixed(2);\n    }\n    return value; // Retorna valores não-numéricos (como \"Running\")\n}\n\n// --- MENSAGENS DE SAÍDA ---\n// Esta função está configurada para 7 saídas.\n// Vamos criar 7 objetos de mensagem, um para cada saída.\n\n// Saída 1: Tabela de Posição (para Group 2)\nconst posData = [\n    { \"Parâmetro\": \"Posição X\", \"Valor\": round(params.positionX) },\n    { \"Parâmetro\": \"Posição Y\", \"Valor\": round(params.positionY) },\n    { \"Parâmetro\": \"Posição Z\", \"Valor\": round(params.positionZ) },\n    { \"Parâmetro\": \"Rotação X\", \"Valor\": round(params.positionRX) },\n    { \"Parâmetro\": \"Rotação Y\", \"Valor\": round(params.positionRY) },\n    { \"Parâmetro\": \"Rotação Z\", \"Valor\": round(params.positionRZ) }\n];\nconst msgPos = { payload: posData };\n\n// Saída 2: Texto de Status (para Group 2)\nconst msgStatus = { payload: params.status };\n\n// Saída 3: Tabela de Juntas (para Group 3)\nconst jointsData = [\n    { \"Junta\": \"Junta 1 (Base)\", \"Valor\": round(params.joint1) },\n    { \"Junta\": \"Junta 2 (Shoulder)\", \"Valor\": round(params.joint2) },\n    { \"Junta\": \"Junta 3 (Elbow)\", \"Valor\": round(params.joint3) },\n    { \"Junta\": \"Junta 4 (Wrist 1)\", \"Valor\": round(params.joint4) },\n    { \"Junta\": \"Junta 5 (Wrist 2)\", \"Valor\": round(params.joint5) },\n    { \"Junta\": \"Junta 6 (Wrist 3)\", \"Valor\": round(params.joint6) }\n];\nconst msgJoints = { payload: jointsData };\n\n// Saída 4: Gráfico de Temperatura (para Group 4)\n// Gráficos 'ui_chart' esperam apenas o número no payload\nconst msgTemp = { payload: round(params.temperature) }; \n\n// Saída 5: Gráfico de Tensão (para Group 4)\nconst msgVolt = { payload: round(params.voltage) };\n\n// Saída 6: Gráfico de Corrente (para Group 4)\nconst msgCurr = { payload: round(params.current) };\n\n// Saída 7: Gráfico de Corrente do Robot (para Group 4)\nconst msgRobCurr = { payload: round(params.robotCurrent) };\n\n// 3. Retorna todas as mensagens como um array\n// A ordem no array corresponde à ordem das saídas (de 1 a 7)\nreturn [ \n    msgPos, \n    msgStatus, \n    msgJoints, \n    msgTemp, \n    msgVolt, \n    msgCurr, \n    msgRobCurr \n];",
+        "outputs": 7,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 340,
+        "wires": [
+            [
+                "c5429e8c97089847"
+            ],
+            [
+                "8f4ac2168913e13e"
+            ],
+            [
+                "92330b1bb4305a5b"
+            ],
+            [
+                "7dd2274e72afe865",
+                "f26082b43fcda425"
+            ],
+            [
+                "a654c1985bc2b1f9"
+            ],
+            [
+                "6382fed19509fe90"
+            ],
+            [
+                "6311e3215b6b4510"
+            ]
+        ]
+    },
+    {
+        "id": "c5429e8c97089847",
+        "type": "ui_table",
+        "z": "ae590a841509cede",
+        "group": "67225b24922b9da0",
+        "name": "",
+        "order": 2,
+        "width": 6,
+        "height": 4,
+        "columns": [
+            {
+                "field": "Parâmetro",
+                "title": "Robot Position and Rotation",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "Valor",
+                "title": "Value",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 650,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "92330b1bb4305a5b",
+        "type": "ui_table",
+        "z": "ae590a841509cede",
+        "group": "67225b24922b9da0",
+        "name": "Juntas (graus)",
+        "order": 3,
+        "width": 6,
+        "height": 5,
+        "columns": [
+            {
+                "field": "Junta",
+                "title": "Joint Degree",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "Valor",
+                "title": "Value",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 680,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6b8f38adb65e3a28",
+        "type": "ui_template",
+        "z": "ae590a841509cede",
+        "group": "67225b24922b9da0",
+        "name": "Diagrama do Braço",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<img src=\"https://mdpi-res.com/machines/machines-11-00306/article_deploy/html/images/machines-11-00306-g001-550.jpg\" style=\"width:100%; height:auto; object-fit:contain;\">",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 670,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a654c1985bc2b1f9",
+        "type": "ui_gauge",
+        "z": "ae590a841509cede",
+        "name": "",
+        "group": "84df0ed935eaf5e9",
+        "order": 1,
+        "width": 6,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Voltage",
+        "label": "V",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "24",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 640,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "6382fed19509fe90",
+        "type": "ui_gauge",
+        "z": "ae590a841509cede",
+        "name": "",
+        "group": "84df0ed935eaf5e9",
+        "order": 2,
+        "width": 6,
+        "height": 3,
+        "gtype": "gage",
+        "title": "Current ",
+        "label": "A",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "7.5",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 640,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "6311e3215b6b4510",
+        "type": "ui_gauge",
+        "z": "ae590a841509cede",
+        "name": "",
+        "group": "84df0ed935eaf5e9",
+        "order": 3,
+        "width": 6,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Robot Current ",
+        "label": "A",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "7.5",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 660,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "f26082b43fcda425",
+        "type": "ui_gauge",
+        "z": "ae590a841509cede",
+        "name": "",
+        "group": "c05700db1b2c443a",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "ºc",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 670,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "48af79046741b302",
+        "type": "mqtt-broker",
+        "name": "broker.emqx.io",
+        "broker": "broker.emqx.io",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "06624d0b66857ac6",
+        "type": "ui_group",
+        "name": "Group 1",
+        "tab": "c388b6a2d0efacea",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c05700db1b2c443a",
+        "type": "ui_group",
+        "name": "Group 3",
+        "tab": "c388b6a2d0efacea",
+        "order": 3,
+        "disp": true,
+        "width": 6
+    },
+    {
+        "id": "67225b24922b9da0",
+        "type": "ui_group",
+        "name": "Group 2",
+        "tab": "c388b6a2d0efacea",
+        "order": 2,
+        "disp": true,
+        "width": 6
+    },
+    {
+        "id": "84df0ed935eaf5e9",
+        "type": "ui_group",
+        "name": "Group 4",
+        "tab": "c388b6a2d0efacea",
+        "order": 4,
+        "disp": true,
+        "width": 6
+    },
+    {
+        "id": "c388b6a2d0efacea",
+        "type": "ui_tab",
+        "name": "Robot Dashboard",
+        "icon": "dashboard",
+        "order": 5,
+        "disabled": false,
+        "hidden": false
+    }
+]

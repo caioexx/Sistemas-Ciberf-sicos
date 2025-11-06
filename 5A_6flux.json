@@ -1,0 +1,411 @@
+[
+    {
+        "id": "9a5dea4d75da19cf",
+        "type": "tab",
+        "label": "SC_5A_sixth-flow",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f95d1e9bbb9393ee",
+        "type": "ui_slider",
+        "z": "9a5dea4d75da19cf",
+        "name": "",
+        "label": "sim temp",
+        "tooltip": "",
+        "group": "b5fe78979391fbab",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "30",
+        "step": 1,
+        "className": "",
+        "x": 300,
+        "y": 160,
+        "wires": [
+            [
+                "204d9d33ae791720",
+                "ba9b9afdf124ec8f",
+                "7eccb373c7c9c967",
+                "0558ae342bc0354b"
+            ]
+        ]
+    },
+    {
+        "id": "204d9d33ae791720",
+        "type": "ui_gauge",
+        "z": "9a5dea4d75da19cf",
+        "name": "",
+        "group": "bb45ba3cd59b4412",
+        "order": 1,
+        "width": 7,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Temperatura",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "30",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 510,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ba9b9afdf124ec8f",
+        "type": "ui_chart",
+        "z": "9a5dea4d75da19cf",
+        "name": "",
+        "group": "26c7d003ad992a9e",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 490,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0dfbb8ca74a41270",
+        "type": "ui_toast",
+        "z": "9a5dea4d75da19cf",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 1050,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "b308fdda4ef44191",
+        "type": "ui_slider",
+        "z": "9a5dea4d75da19cf",
+        "name": "",
+        "label": "sim hum",
+        "tooltip": "",
+        "group": "b5fe78979391fbab",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": 0,
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "x": 300,
+        "y": 300,
+        "wires": [
+            [
+                "762faf24c67bac2a",
+                "19c7f781c52c8e3d",
+                "c6a0d0fb51b62768"
+            ]
+        ]
+    },
+    {
+        "id": "762faf24c67bac2a",
+        "type": "ui_gauge",
+        "z": "9a5dea4d75da19cf",
+        "name": "",
+        "group": "bb45ba3cd59b4412",
+        "order": 3,
+        "width": 7,
+        "height": 4,
+        "gtype": "gage",
+        "title": "Humidade",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 510,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "19c7f781c52c8e3d",
+        "type": "ui_chart",
+        "z": "9a5dea4d75da19cf",
+        "name": "",
+        "group": "26c7d003ad992a9e",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 490,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c6a0d0fb51b62768",
+        "type": "switch",
+        "z": "9a5dea4d75da19cf",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lte",
+                "v": "10",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 460,
+        "wires": [
+            [
+                "6e4ede19fa031ac8"
+            ]
+        ]
+    },
+    {
+        "id": "6e4ede19fa031ac8",
+        "type": "change",
+        "z": "9a5dea4d75da19cf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "alerta humidade baixa",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 460,
+        "wires": [
+            [
+                "345fc5ccc6fa8742"
+            ]
+        ]
+    },
+    {
+        "id": "7eccb373c7c9c967",
+        "type": "switch",
+        "z": "9a5dea4d75da19cf",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "25",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 630,
+        "y": 80,
+        "wires": [
+            [
+                "97b853bc4861084a"
+            ]
+        ]
+    },
+    {
+        "id": "97b853bc4861084a",
+        "type": "change",
+        "z": "9a5dea4d75da19cf",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "alerta temp",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 80,
+        "wires": [
+            [
+                "0dfbb8ca74a41270"
+            ]
+        ]
+    },
+    {
+        "id": "345fc5ccc6fa8742",
+        "type": "ui_toast",
+        "z": "9a5dea4d75da19cf",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "",
+        "x": 890,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "0558ae342bc0354b",
+        "type": "debug",
+        "z": "9a5dea4d75da19cf",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "b5fe78979391fbab",
+        "type": "ui_group",
+        "name": "Group 1",
+        "tab": "80fc11f0f811bf69",
+        "order": 1,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "bb45ba3cd59b4412",
+        "type": "ui_group",
+        "name": "Group 2",
+        "tab": "80fc11f0f811bf69",
+        "order": 2,
+        "disp": true,
+        "width": 7,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "26c7d003ad992a9e",
+        "type": "ui_group",
+        "name": "Group 3",
+        "tab": "80fc11f0f811bf69",
+        "order": 3,
+        "disp": true,
+        "width": 6
+    },
+    {
+        "id": "80fc11f0f811bf69",
+        "type": "ui_tab",
+        "name": "Temp Hum Simulation",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
