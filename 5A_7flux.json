@@ -1,32 +1,39 @@
 [
     {
-        "id": "455a75afebb9441e",
+        "id": "49a86804e006f316",
         "type": "tab",
         "label": "SC_5A_seventh-flow",
-        "disabled": true,
+        "disabled": false,
         "info": "",
         "env": []
     },
     {
-        "id": "7ad16f1083d63d9d",
-        "type": "debug",
-        "z": "455a75afebb9441e",
-        "name": "debug 33",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1200,
-        "y": 380,
-        "wires": []
+        "id": "034a65cf9ac9ce7c",
+        "type": "function",
+        "z": "49a86804e006f316",
+        "name": "function 3",
+        "func": "msg.payload = [10, 20, 30, 40, 50];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 160,
+        "wires": [
+            [
+                "912f335377208cb3",
+                "bcbbdd255091b8b2",
+                "8e1cbe583c9fb6c7",
+                "632d12dc1f77194c"
+            ]
+        ]
     },
     {
-        "id": "f96e4aedafe541f3",
+        "id": "c5d6106d9bf7819a",
         "type": "inject",
-        "z": "455a75afebb9441e",
+        "z": "49a86804e006f316",
         "name": "",
         "props": [
             {
@@ -44,32 +51,203 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 700,
-        "y": 380,
+        "x": 100,
+        "y": 160,
         "wires": [
             [
-                "b2bd12cbd9088cc9"
+                "034a65cf9ac9ce7c"
             ]
         ]
     },
     {
-        "id": "b2bd12cbd9088cc9",
+        "id": "912f335377208cb3",
         "type": "function",
-        "z": "455a75afebb9441e",
-        "name": "function 4",
-        "func": "let valores = [10, 20, 30, 40, 50];\nlet media = valores.reduce((a, b) => a + b, 0) / valores.length;\n\nmsg.payload = {\n    valores: valores,\n    media: media\n};\nreturn msg;",
+        "z": "49a86804e006f316",
+        "name": "Sum",
+        "func": "let out=0;\nfor (let val of msg.payload){\n    out+=val;\n}\nmsg.payload=out;\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 960,
-        "y": 380,
+        "x": 450,
+        "y": 120,
         "wires": [
             [
-                "7ad16f1083d63d9d"
+                "31695a29a015b12b"
             ]
         ]
+    },
+    {
+        "id": "bcbbdd255091b8b2",
+        "type": "function",
+        "z": "49a86804e006f316",
+        "name": "Average",
+        "func": "let out=0;\nfor (let val of msg.payload){\n    out+=val;\n}\nout/=msg.payload.length;\nmsg.payload=out;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 180,
+        "wires": [
+            [
+                "2a7e81a8c79ff10e"
+            ]
+        ]
+    },
+    {
+        "id": "8e1cbe583c9fb6c7",
+        "type": "function",
+        "z": "49a86804e006f316",
+        "name": "Max",
+        "func": "msg.payload = Math.max(...msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "d0c3b41a2c2e5c1d"
+            ]
+        ]
+    },
+    {
+        "id": "632d12dc1f77194c",
+        "type": "function",
+        "z": "49a86804e006f316",
+        "name": "Min",
+        "func": "msg.payload = Math.min(...msg.payload)\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 300,
+        "wires": [
+            [
+                "d5fc0c9fbfb009e6"
+            ]
+        ]
+    },
+    {
+        "id": "31695a29a015b12b",
+        "type": "ui_text",
+        "z": "49a86804e006f316",
+        "group": "270e46afb9ed9c4a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Sum",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 670,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "2a7e81a8c79ff10e",
+        "type": "ui_text",
+        "z": "49a86804e006f316",
+        "group": "270e46afb9ed9c4a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Average",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 680,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "d0c3b41a2c2e5c1d",
+        "type": "ui_text",
+        "z": "49a86804e006f316",
+        "group": "270e46afb9ed9c4a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Max",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 670,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "d5fc0c9fbfb009e6",
+        "type": "ui_text",
+        "z": "49a86804e006f316",
+        "group": "270e46afb9ed9c4a",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Min",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 670,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "270e46afb9ed9c4a",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "a3d36e5ef2ec6f71",
+        "order": 1,
+        "disp": true,
+        "width": "9",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a3d36e5ef2ec6f71",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "b3f1287d41c726c8",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-dashboard": "3.6.6"
+        }
     }
 ]
