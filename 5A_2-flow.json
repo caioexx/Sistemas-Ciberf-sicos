@@ -1,0 +1,172 @@
+[
+    {
+        "id": "4e7875fc0db3b90b",
+        "type": "tab",
+        "label": "SC_5A_second-flow",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "0705b2ce4532940c",
+        "type": "inject",
+        "z": "4e7875fc0db3b90b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "300",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "23e39b3a1b9da24c"
+            ]
+        ]
+    },
+    {
+        "id": "09984e58ccef4fef",
+        "type": "debug",
+        "z": "4e7875fc0db3b90b",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "23e39b3a1b9da24c",
+        "type": "http request",
+        "z": "4e7875fc0db3b90b",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.csv",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "7958446d6af2c971"
+            ]
+        ]
+    },
+    {
+        "id": "7958446d6af2c971",
+        "type": "csv",
+        "z": "4e7875fc0db3b90b",
+        "name": "",
+        "spec": "rfc",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "one",
+        "ret": "\\r\\n",
+        "temp": "",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 330,
+        "y": 160,
+        "wires": [
+            [
+                "09984e58ccef4fef",
+                "c20be31486531a55"
+            ]
+        ]
+    },
+    {
+        "id": "c20be31486531a55",
+        "type": "switch",
+        "z": "4e7875fc0db3b90b",
+        "name": "",
+        "property": "payload.mag",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "7",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 240,
+        "wires": [
+            [
+                "192c2a4c20d93d06"
+            ]
+        ]
+    },
+    {
+        "id": "a714c2b5e91c1010",
+        "type": "debug",
+        "z": "4e7875fc0db3b90b",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "192c2a4c20d93d06",
+        "type": "change",
+        "z": "4e7875fc0db3b90b",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "PANIC!",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 320,
+        "wires": [
+            [
+                "a714c2b5e91c1010"
+            ]
+        ]
+    }
+]
