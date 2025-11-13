@@ -1,0 +1,338 @@
+[
+    {
+        "id": "ef46abf0e63a8a38",
+        "type": "tab",
+        "label": "6 Encrypted Data",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f905328d4b5e6760",
+        "type": "mqtt in",
+        "z": "ef46abf0e63a8a38",
+        "name": "",
+        "topic": "IPB/IoT/Lab/AirQuality/Cripto",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "48af79046741b302",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "803559d7d1b7168e",
+                "2d29d0777be33d48"
+            ]
+        ]
+    },
+    {
+        "id": "803559d7d1b7168e",
+        "type": "decrypt",
+        "z": "ef46abf0e63a8a38",
+        "name": "",
+        "algorithm": "AES",
+        "key": "my_key_IPB",
+        "x": 400,
+        "y": 140,
+        "wires": [
+            [
+                "c8824ebd660f128e",
+                "a9a88c2feafa0039"
+            ]
+        ]
+    },
+    {
+        "id": "2d29d0777be33d48",
+        "type": "debug",
+        "z": "ef46abf0e63a8a38",
+        "name": "Encrypted",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c8824ebd660f128e",
+        "type": "debug",
+        "z": "ef46abf0e63a8a38",
+        "name": "Decrypted",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "6216dd70ade9c8c3",
+        "type": "mqtt in",
+        "z": "ef46abf0e63a8a38",
+        "name": "",
+        "topic": "Crypto/AES",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "48af79046741b302",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 60,
+        "wires": [
+            [
+                "de7e9bcc64b4968d"
+            ]
+        ]
+    },
+    {
+        "id": "de7e9bcc64b4968d",
+        "type": "debug",
+        "z": "ef46abf0e63a8a38",
+        "name": "Decrypt-Key",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 290,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "cb86e6cb4370549c",
+        "type": "mqtt in",
+        "z": "ef46abf0e63a8a38",
+        "name": "",
+        "topic": "IPB/IoT/Lab/AirQuality",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "48af79046741b302",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 260,
+        "wires": [
+            [
+                "d7a49936d1041067",
+                "dd15f569610d2cf6"
+            ]
+        ]
+    },
+    {
+        "id": "d7a49936d1041067",
+        "type": "debug",
+        "z": "ef46abf0e63a8a38",
+        "name": "Original Data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "6b01d583e70a36fc",
+        "type": "json",
+        "z": "ef46abf0e63a8a38",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 750,
+        "y": 140,
+        "wires": [
+            [
+                "d649d02f3c62d23a",
+                "7224174cbd2f10c1"
+            ]
+        ]
+    },
+    {
+        "id": "d649d02f3c62d23a",
+        "type": "debug",
+        "z": "ef46abf0e63a8a38",
+        "name": "Decrypted JSON",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "71c641169b140716",
+        "type": "function",
+        "z": "ef46abf0e63a8a38",
+        "name": "Equals function",
+        "func": "function deepEqual(a, b) {\n  if (a === b) return true;\n\n  if (typeof a !== \"object\" || typeof b !== \"object\" || a == null || b == null)\n    return false;\n\n  const keysA = Object.keys(a);\n  const keysB = Object.keys(b);\n\n  if (keysA.length !== keysB.length) return false;\n\n  for (const key of keysA) {\n    if (!keysB.includes(key) || !deepEqual(a[key], b[key])) return false;\n  }\n\n  return true;\n}\n\nmsg.payload = deepEqual(msg.payload.orig_data, msg.payload.decrypt_data)\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 220,
+        "wires": [
+            [
+                "f9dfe11662f99905"
+            ]
+        ]
+    },
+    {
+        "id": "7224174cbd2f10c1",
+        "type": "join",
+        "z": "ef46abf0e63a8a38",
+        "name": "",
+        "mode": "custom",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "useparts": true,
+        "accumulate": false,
+        "timeout": "",
+        "count": "2",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 930,
+        "y": 220,
+        "wires": [
+            [
+                "71c641169b140716"
+            ]
+        ]
+    },
+    {
+        "id": "dd15f569610d2cf6",
+        "type": "function",
+        "z": "ef46abf0e63a8a38",
+        "name": "Add topic name",
+        "func": "msg.topic = \"orig_data\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 220,
+        "wires": [
+            [
+                "7224174cbd2f10c1"
+            ]
+        ]
+    },
+    {
+        "id": "a9a88c2feafa0039",
+        "type": "function",
+        "z": "ef46abf0e63a8a38",
+        "name": "Add topic name",
+        "func": "msg.topic = \"decrypt_data\"\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 140,
+        "wires": [
+            [
+                "6b01d583e70a36fc"
+            ]
+        ]
+    },
+    {
+        "id": "f9dfe11662f99905",
+        "type": "debug",
+        "z": "ef46abf0e63a8a38",
+        "name": "Equal?",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1240,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "48af79046741b302",
+        "type": "mqtt-broker",
+        "name": "broker.emqx.io",
+        "broker": "broker.emqx.io",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "0836ef30e72499ac",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-crypto-js": "0.1.1"
+        }
+    }
+]

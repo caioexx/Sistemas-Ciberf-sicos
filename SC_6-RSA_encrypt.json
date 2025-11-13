@@ -1,0 +1,207 @@
+[
+    {
+        "id": "8008e8c1da7fc588",
+        "type": "tab",
+        "label": "SC_6-RSA_encrypt",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "13fec1586f47fe8f",
+        "type": "rsa-generate-keypair",
+        "z": "8008e8c1da7fc588",
+        "name": "rsa generate keypair",
+        "bitlength": "2048",
+        "passphrase": "",
+        "x": 380,
+        "y": 220,
+        "wires": [
+            [
+                "fd12e7dd98e19c20",
+                "aee940013510a316",
+                "e86c4409def73ab5",
+                "d5b418f512c8ac72"
+            ]
+        ]
+    },
+    {
+        "id": "c6f62382571ba15f",
+        "type": "inject",
+        "z": "8008e8c1da7fc588",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 220,
+        "wires": [
+            [
+                "13fec1586f47fe8f"
+            ]
+        ]
+    },
+    {
+        "id": "fd12e7dd98e19c20",
+        "type": "rsa-encrypt",
+        "z": "8008e8c1da7fc588",
+        "name": "rsa encrypt - CH pub",
+        "publickey": "",
+        "x": 320,
+        "y": 340,
+        "wires": [
+            [
+                "3e3b64f5c5f5ac88",
+                "aee940013510a316"
+            ]
+        ]
+    },
+    {
+        "id": "aee940013510a316",
+        "type": "rsa-decrypt",
+        "z": "8008e8c1da7fc588",
+        "name": "rsa decrypt - CH priv",
+        "privatekey": "",
+        "x": 600,
+        "y": 340,
+        "wires": [
+            [
+                "f432fe79bb0f17e7"
+            ]
+        ]
+    },
+    {
+        "id": "ed20dc216e660623",
+        "type": "inject",
+        "z": "8008e8c1da7fc588",
+        "name": "mensagem",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "\"Mensagem a ser criptografada na aula de Sistemas Ciberfísico no dia 13/11/2025!\"",
+        "payloadType": "str",
+        "x": 120,
+        "y": 340,
+        "wires": [
+            [
+                "fd12e7dd98e19c20"
+            ]
+        ]
+    },
+    {
+        "id": "3e3b64f5c5f5ac88",
+        "type": "debug",
+        "z": "8008e8c1da7fc588",
+        "name": "debug 39",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f432fe79bb0f17e7",
+        "type": "debug",
+        "z": "8008e8c1da7fc588",
+        "name": "debug 40",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ffd107ddb7e269d5",
+        "type": "comment",
+        "z": "8008e8c1da7fc588",
+        "name": "chave pública - emissor; chave privada - receptor",
+        "info": "",
+        "x": 220,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "b34bdc3c905e612c",
+        "type": "file",
+        "z": "8008e8c1da7fc588",
+        "name": "",
+        "filename": "C:\\Users\\Caio\\Desktop\\chavesSC_13-11.txt",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 730,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e86c4409def73ab5",
+        "type": "function",
+        "z": "8008e8c1da7fc588",
+        "name": "function 13",
+        "func": "msg.payload.privateKey = msg.payload.privateKey.replaceAll(\"\\n\", \"\");\nmsg.payload.publicKey = msg.payload.publicKey.replaceAll(\"\\n\", \"\");\n\nmsg.payload = JSON.stringify(msg.payload);\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 80,
+        "wires": [
+            [
+                "b34bdc3c905e612c"
+            ]
+        ]
+    },
+    {
+        "id": "d5b418f512c8ac72",
+        "type": "debug",
+        "z": "8008e8c1da7fc588",
+        "name": "debug 38",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 220,
+        "wires": []
+    }
+]
