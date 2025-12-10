@@ -14,7 +14,7 @@ import javax.script.ScriptEngineManager;
 
 
 
-public class CNP_Driver extends Agent {
+public class Parking_Driver extends Agent {
     protected void setup() {
 
         // Update the list of seller agents

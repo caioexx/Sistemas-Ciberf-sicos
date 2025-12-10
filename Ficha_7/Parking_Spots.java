@@ -10,7 +10,7 @@ import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.proto.ContractNetResponder;
 
-public class CNP_Spots extends Agent {
+public class Parking_Spots extends Agent {
     private String spotPosition;
     private int spotPrice;
     private boolean spotOccupied;
