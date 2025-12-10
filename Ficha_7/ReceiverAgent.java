@@ -18,7 +18,7 @@ public class ReceiverAgent extends Agent {
                 if (msg != null) {
                     System.out.println("Cyclical Agent received: " + msg.getContent());
                 } else {
-                    block(); // saves CPU, waits for next message
+                    block();
                 }
             }
         });

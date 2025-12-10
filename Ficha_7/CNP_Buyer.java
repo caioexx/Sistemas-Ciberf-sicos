@@ -44,7 +44,6 @@ public class CNP_Buyer extends Agent {
         });
     }
 
-    // --- Inner Class for Negotiation Logic ---
     private class BookNegotiator extends ContractNetInitiator {
         private String bookTitle;
 
